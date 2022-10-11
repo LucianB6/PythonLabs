@@ -93,6 +93,7 @@ print("")
 # 5. Given a square matrix of characters write a script that prints the string obtained
 # by going through the matrix in spiral order (as in the example):
 
+# https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/
 def spiralPath(matrix):
 
     rows = len(matrix)  # indexul lui i de final
