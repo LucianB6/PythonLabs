@@ -37,6 +37,7 @@ print("")
 # 2. Write a script that calculates how many vowels are in a string.
 
 def vowelCalculator(vowel, string):
+
     vowelCounter = 0
 
     for i in range(len(string)):
@@ -67,7 +68,7 @@ def occurences(string1, string2):
     return word
 
 
-string1 = 'daniel'
+string1 = 'daniel ma'
 string2 = 'Daniel mama mama'
 
 print("")
@@ -78,15 +79,26 @@ print("")
 # 4. Write a script that converts a string of characters written in UpperCamelCase into lowercase_with_underscores.
 
 def lowercase(convert):
+    global var
+    cuv_nou = []
+    for i in convert:
+        var = convert
     for i in range(len(convert)):
+        cuv_nou.append(convert[i])
+        
         if convert[i].islower() == True and convert[i + 1].isupper() == True:
             convert = convert[:i + 1] + "_" + convert[i + 1:]
+            cuv_nou.append(convert)
+        if convert[i] == var and convert[i].isupper():
+            cuv_nou.append("_")
+            cuv_nou.append(convert[i].lower())
+
 
     convert = convert.lower()
     return convert
 
 
-print("The lower case form is: " + str(lowercase('UpperCamelCase')))
+print("The lower case form is: " + str(lowercase('UpperCamelCaseA')))
 print("")
 
 
@@ -164,7 +176,9 @@ import re
 
 
 def extract(i):
+    random = i
     a = re.findall("(-?\d+)", i)
+
     a = a[0]
     return a
 
