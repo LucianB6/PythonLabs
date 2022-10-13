@@ -28,3 +28,38 @@ def fibonacci(n):
 
 
 print(fibonacci(1))
+
+"""
+      2. Write a function that receives a list of numbers 
+         and returns a list of the prime numbers found in it.
+"""
+
+
+def prime_numbers(number):
+
+    if number > 1:
+        for i in range(2, number):
+            if number % i == 0:
+                break
+        else:
+            print(number, end=" ")
+
+
+def list_of_numbers(list):
+    new_list = []
+
+    for i in list:
+        prime_numbers(i)
+
+    return new_list
+
+
+list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+list_of_numbers(list)
+
+"""
+      3. Write a function that receives as parameters two lists a and b and returns:
+         (a intersected with b, a reunited with b, a - b, b - a)
+         
+         
+"""
