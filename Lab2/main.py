@@ -351,4 +351,4 @@ def rhyme(words):
     return final_result
 
 
-print(rhyme(['ana', 'banana', 'carte', 'arme', 'parte']))
+print(rhyme(['ana', 'banana', 'carte', 'arme', 'parte', 'cana']))
