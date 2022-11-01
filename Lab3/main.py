@@ -70,7 +70,7 @@ comparation(d, d1)
 
 
 def build_xml_element(tag, content, elements):
-    return "<{} {}> {} <\{}>".format(tag, ", ".join("{} = \" {}\"".format(keys, value)
+    return "<{} {}> {} <\{}>".format(tag, ", ".join("{} = \" {} \"".format(keys, value)
                                                     for keys, value in elements.items())
                                      , content, tag)
 
