@@ -25,6 +25,7 @@ def exercise1(director):
         print(str(e))
         return []
 
+
 print("Exercise 1: " + str(exercise1("C:\\Users\\Lucian\\OneDrive\\Documents")), end="\n\n")
 
 """
@@ -39,13 +40,14 @@ Implementati functia astfel încât în fișierul de la calea fișier să fie sc
 def exercise2(director, fisier):
     try:
         with open(fisier, "w") as f:
-            print("Exercise 2:", end="")
+            print("Exercise 2:", end=" ")
             for el in os.listdir(director):
                 name = os.path.join(director, el)
                 if os.path.isfile(name) and el.startswith("A"):
                     print(os.path.abspath(name) + os.linesep)
     except Exception as e:
         print(str(e))
+
 
 exercise2(".", "b.b")
 
@@ -82,6 +84,7 @@ def exercise3(my_path):
     except Exception as e:
         print(str(e))
 
+
 my_path = "C:\\Users\\Lucian\\OneDrive\\Documents"
 print("Exercise 3:" + str(exercise3(my_path)), end="\n\n")
 
@@ -112,43 +115,36 @@ print("Exercise 4: " + str(exercise4()), end="\n\n")
   in fișierul respectiv iar dacă este un director se va căuta recursiv in toate fișierele din acel director.
    Dacă target nu este nici fișier, nici director, se va arunca o excepție de tipul ValueError cu un mesaj corespunzator.
 """
-#
-# def exercise5(target, to_search):
-#
-#     def file_contains_to_search(target, to_search):
-#         fileNames = os.listdir(target)
-#         list = set()
-#         for fileName in fileNames:
-#             file = os.path.splitext(fileName)[0]
-#             if file(to_search):
-#                 list.add(file)
-#         return list
-#
-#
-#     if os.path.isfile(target):
-#         file = os.path.basename(target)
-#         if file in file_contains_to_search(target, to_search):
-#             return target
-#
-#
-#     elif os.path.isdir(target):
-#         fileNames = os.listdir(target)
-#         list = set()
-#
-#         for fileName in fileNames:
-#             file = os.path.splitext(fileName)[1]
-#             if file in file_contains_to_search(target, to_search):
-#                 list.add(file)
-#
-#         return list
-#
-#     else:
-#         raise ValueError(target + ": is not a valid path to file or directory")
-#
-#
-#
-# print(exercise5(".", "b"))
 
+
+def exercise5(target, to_search):
+    def file_contains_to_search(target, to_search):
+        fileNames = os.path.basename(target)
+        if fileNames.__contains__(to_search):
+            list.add(fileNames)
+        return list
+
+    if os.path.isfile(target):
+        file = os.path.basename(target)
+        if file in file_contains_to_search(target, to_search):
+            return target
+
+    elif os.path.isdir(target):
+        fileNames = os.listdir(target)
+        list = set()
+        for fileName in fileNames:
+            file = os.path.basename(fileName)
+            if file in file_contains_to_search(file, to_search):
+                list.add(os.path.basename(file))
+        if list:
+            return list
+        else:
+            return None
+    else:
+        raise ValueError(target + ": is not a valid path to file or directory")
+
+
+print("Exercise 5: " + str(exercise5(".", "ma")), end="\n\n")
 
 """
 6)	Să se scrie o funcție care are același comportament ca funcția de la exercițiul anterior,
@@ -156,11 +152,26 @@ print("Exercise 4: " + str(exercise4()), end="\n\n")
   iar pentru fiecare eroare apărută în procesarea fișierelor, se va apela funcția respectivă cu instanța excepției ca parametru.
 """
 
+
+def error_callable(exception):
+    print(exception)
+
+
+def exercise6(target, to_search, callback):
+    try:
+        return exercise5(target, to_search)
+    except Exception as e:
+        callback(e)
+
+
+print("Exercise 6: " + str(exercise6(".", "asa", error_callable)), end="\n\n")
+
 """
 7)	Să se scrie o funcție care primește ca parametru un șir de caractere care reprezintă calea către un fișer
  si returnează un dicționar cu următoarele cămpuri: full_path = calea absoluta catre fisier, file_size = dimensiunea fisierului in octeti,
   file_extension = extensia fisierului (daca are) sau "", can_read, can_write = True/False daca se poate citi din/scrie in fisier.
 """
+
 
 def exercise7(file):
     return {"full_path:": os.path.abspath(file),
@@ -173,7 +184,6 @@ def exercise7(file):
 
 file = "find.txt"
 print("Exercise 7: " + str(exercise7(file)), end="\n\n")
-
 
 """
 8)	Să se scrie o funcție ce primește un parametru cu numele dir_path.
