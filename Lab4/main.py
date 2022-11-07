@@ -153,15 +153,39 @@ print("Exercise 5: " + str(exercise5(".", "ma")), end="\n\n")
 """
 
 
-def error_callable(exception):
+def error_callable(exception: Exception):
     print(exception)
 
 
 def exercise6(target, to_search, callback):
-    try:
-        return exercise5(target, to_search)
-    except Exception as e:
-        callback(e)
+    def file_contains_to_search(target, to_search):
+        fileNames = os.path.basename(target)
+        try:
+            if fileNames.__contains__(to_search):
+                list.add(fileNames)
+        except Exception as e:
+            callback()
+        return list
+
+    if os.path.isfile(target):
+        file = os.path.basename(target)
+        if file in file_contains_to_search(target, to_search):
+            return target
+
+    elif os.path.isdir(target):
+        fileNames = os.listdir(target)
+        list = set()
+        for fileName in fileNames:
+            file = os.path.basename(fileName)
+
+            if file in file_contains_to_search(file, to_search):
+                list.add(os.path.basename(file))
+        if list:
+            return list
+        else:
+            return None
+    else:
+        raise ValueError(target + ": is not a valid path to file or directory")
 
 
 print("Exercise 6: " + str(exercise6(".", "asa", error_callable)), end="\n\n")
