@@ -240,3 +240,26 @@ def exercise8(dir_path):
 
 dir_path = "C:\\Users\\Lucian\\OneDrive\\Desktop\\FIAnul3\\Python\\PythonLabs\\Lab4"
 print("Exercise 8: " + str(exercise8(dir_path)), end="\n\n")
+
+import sys
+
+
+def data(fileName, ColName):
+    try:
+        with open(fileName, "r") as f:
+            columns = f.readline()
+        except IOError as a:
+    print("[ERROR] - IO error " + str(a))
+
+
+if len(sys.argv) == 3:
+    print("Validated numbers")
+
+else:
+    print("Number of parameters are numerically incorrect")
+exit(0)
+
+try:
+    data(sys.argv[1], sys.argv[2])
+except Exception as e:
+    print("Number of parameters are incorrect " + str(e))

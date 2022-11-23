@@ -321,11 +321,42 @@ make_a_tuple(list_of_elements)
 """
 
 
-def order_tuple(string_list):
-    return sorted(string_list, key=lambda x: x[1][2])
+def order_tuple(*args):
+
+    return sorted(args, key=lambda x: x[1])
 
 
-print(order_tuple([('abc', 'bcd'), ('abc', 'zza')]), end="\n\n")
+print("Order" + str(order_tuple(
+    {1: 9,
+2: 6,
+3: 8,
+4: 5,
+5: 7,
+6: 4,
+7: 7,
+8: 6,
+9: 5,
+10: 5,
+11: 6,
+12: 6,
+13: 4,
+14: 4,
+15: 4,
+16: 7,
+17: 6,
+18: 6,
+19: 7,
+20: 5,
+21: 8,
+22: 5,
+23: 5,
+24: 5,
+25: 6,
+26: 6,
+27: 7,
+28: 7,
+29: 5,
+30: 7 })), end="\n\n")
 
 """
 12. Write a function that will receive a list of words  as parameter and will return a list of lists of words,
@@ -352,3 +383,40 @@ def rhyme(words):
 
 
 print(rhyme(['ana', 'banana', 'carte', 'arme', 'parte', 'cana']))
+
+try:
+    arg
+except I
+orders = {
+1: 6,
+2: 7,
+3: 8,
+4: 5,
+5: 9,
+6: 5,
+7: 8,
+8: 4,
+9: 5,
+10: 6,
+11: 6,
+12: 6,
+13: 6,
+14: 6,
+15: 5,
+16: 4,
+17: 5,
+18: 5,
+19: 6,
+20: 8,
+21: 5,
+22: 3,
+23: 7,
+24: 3,
+25: 4
+}
+
+sort_orders = sorted(orders.items(), key=lambda x: x[1], reverse=True)
+list = []
+for i in sort_orders:
+    list.append(i[0])
+print(list)
