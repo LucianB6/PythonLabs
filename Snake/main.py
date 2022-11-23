@@ -58,10 +58,6 @@ new_y = 0
 play = True
 clock = pygame.time.Clock()
 
-
-def createSnake(*args):
-    print(args)
-
 #functionalitate joc
 class RunGame():
     def __init__(self, x, y, new_x, new_y):
@@ -76,52 +72,54 @@ class RunGame():
 
         x_width = 200
         y_width = 200
+        length_of_snake = 1
+        snake_list = [(self.x, self.y)]
 
-        snake_list = []
         while run:
             for decision in pg.event.get():
                 if decision.type == pg.QUIT:
                     print("GoodBye")
                     exitButton = False
                     quit()
-
-                global prevKey
-
+                prevKey = []
                 if decision.type == pg.KEYDOWN:
-                    if decision.key == pg.K_LEFT:
+                    if decision.key == pg.K_LEFT and prevKey != "right":
                         self.new_x -= 20
                         self.new_y = 0
-                        prevKey = "left"
-                    if decision.key == pg.K_RIGHT:
+                        prevKey.append("left")
+                    if decision.key == pg.K_RIGHT and prevKey != "left":
                         self.new_x += 20
                         self.new_y = 0
-                        prevKey = "right"
-                    if decision.key == pg.K_UP:
+                        prevKey.append("right")
+                    if decision.key == pg.K_UP and prevKey != "down":
                         self.new_x = 0
                         self.new_y -= 20
-                        prevKey = "up"
-                    if decision.key == pg.K_DOWN:
+                        prevKey.append("up")
+                    if decision.key == pg.K_DOWN and prevKey != "up":
                         self.new_x = 0
                         self.new_y += 20
-                        prevKey = "down"
+                        prevKey.append("down")
 
             self.x += self.new_x
             self.y += self.new_y
 
+            snake_list.append((self.x, self.y))
+
+            if self.x == x_width and self.y == y_width:
+                x_width = random.randrange(0, 400, +20)
+                y_width = random.randrange(0, 400, +20)
+                length_of_snake += 1
+            else:
+                del snake_list[0]
             screen.fill(FILL_COLOR)
-            pg.draw.rect(screen, SNAKE_COLOR, [self.x, self.y, length, heigth])
+
+            for (i, j) in snake_list:
+                pg.draw.rect(screen, SNAKE_COLOR, [i, j, heigth, length])
             pg.draw.rect(screen, FOOD_COLOR, [x_width, y_width, 20, 20])
 
             clock.tick(5)
             pg.display.update()
-            length_of_Snake = 1
-            if self.x == x_width and self.y == y_width:
-                snake_list.append((x_width // 20, y_width // 20))
-                x_width = random.randrange(0, 400, +20)
-                y_width = random.randrange(0, 400, +20)
-                print(str(prevKey))
-                createSnake(snake_list)
-                length_of_Snake += 1
+                # createSnake(snake_list[-1][0], snake_list[-1][1], self.x, self.y)
 
             if self.x > HEIGTH or self.x < 0 or self.y > WIDTH or self.y < 0:
                 run = False
