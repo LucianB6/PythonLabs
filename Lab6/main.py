@@ -14,7 +14,7 @@ def exercise1(element, **kargs):
 
     return list_of_words    
 
-print("Exercise 1: " + str(exercise1("Mama mea are mere")))
+print("Exercise 1: " + str(exercise1("Mama mea are mere")), end = "\n\n")
 
 
 """
@@ -38,7 +38,7 @@ text = "Mama mea este florareasa"
 regex = "^[a-z]"
 number = 4
 
-print("Exercise 2: " + str(exercise2(text, regex, number)))
+print("Exercise 2: " + str(exercise2(text, regex, number)), end = "\n\n")
 
 """
 Write a function that receives two parameters: a list of strings and a list of regular expressions.
@@ -61,7 +61,7 @@ def exercise3(string, regex):
 list_of_strings = ['Mama', 'mea', 'este', 'florareasa']
 list_of_regex = ['^m', 'a$']
 
-print("Exercise 3: " + str(exercise3(list_of_strings, list_of_regex)))
+print("Exercise 3: " + str(exercise3(list_of_strings, list_of_regex)), end = "\n\n")
 
 
 """
@@ -90,7 +90,7 @@ def exercise3(data, dict):
     return list_of_tag
 data = 'data.xml'
 dict = {"id":"bk106"}
-print("Exercise 3: " + str(exercise3(data, dict)))
+print("Exercise 3: " + str(exercise3(data, dict)), end = "\n\n")
 
 """
 Write another variant of the function from the previous exercise that
@@ -105,14 +105,17 @@ def exercise4(data, dict):
     tree = ET.parse('data.xml')
     root = tree.getroot()
     list_of_tag = []
+    empty_dic = {}
+    
     for child in root:
-        list_3 = list(map(lambda x, y: x == y, dict, child.attrib.items()))
-        print(list_3)
+        shared_items = {dict[k]: dict[k] for k in dict if k in child.attrib and dict[k] == child.attrib[k]}
+        if shared_items != empty_dic:
+            list_of_tag.append(child.tag)
     
     return list_of_tag
 data = 'data.xml'
 dict = {"id":"bk106"}
-print("Exercise 4: " + str(exercise4(data, dict)))
+print("Exercise 4: " + str(exercise4(data, dict)), end = "\n\n")
 
 """
 Write a function that, for a text given as a parameter, censures words that begin and end with vowels.
@@ -135,7 +138,7 @@ def exercise6(censured):
 
 censured = "Arite a function that, for a text given as a parameter, censures words that begin and end with vowels."
 
-print("Exercise 6: " + str(exercise6(censured)))
+print("Exercise 6: " + str(exercise6(censured)), end = "\n\n")
 
 
 """
@@ -154,7 +157,7 @@ cnpRegex = "^[1-9]\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(0[1-9]|[1-4]\d|5[0-2
 cnp = "5010801375492"
 print("Exercise 7: ", end=" ") 
 exercise7(cnpRegex, cnp)
-print(end="\n\n")
+print(end="\n")
 
 
 """
@@ -172,10 +175,10 @@ def exercise8(director, regex):
     try:
         for fileName in fileNames:
             file, extension = os.path.splitext(fileName)
-            if re.search(regex, file):
+            if re.match(regex, file) or re.search(regex, file):
                 file = char + str(file)
-                list_of_extension.add(file)
-                if re.search("txt$", extension):
+                list_of_extension.add(file) # adaug fisier cand gasesc regexul
+                if re.search("txt$", extension): # deschid fisierul ca sa gasesc acest reget in int sau
                     with open(file, "r") as e:
                         new_Check = os.readlines(e)
                         new_Check = new_Check.split()
@@ -184,7 +187,9 @@ def exercise8(director, regex):
                             if re.search(regex, line):
                                 line = char + str(line)
                                 list_of_extension.add(line)
+                                
             # in caz de avem fisiere ce contine spatii in string
+            # aici nu am inteles exact ideea probleme, sper sa fie ok-ish
             else:
                 my_file = file.split()
                 for element in my_file:
