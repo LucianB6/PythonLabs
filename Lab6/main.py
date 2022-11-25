@@ -71,17 +71,26 @@ in the dictionary and values ​​the corresponding values. For example,
 if attrs={"class": "url", "name": "url-form", "data-id": "item"} the items selected will be
 those tags whose attributes are class="url" si name="url-form" si data-id="item".
 """
-def exercise3(data):
-    my_reg = "^<.*\>$"
+import xml.etree.ElementTree as ET
+
+
+def exercise3(data, dict):
+    my_reg = "^<.*>$"
     list_of_xml = []
-    with open(data, 'r') as f:
-        data = f.read()
-    for elem in data:
-        if re.search(my_reg, elem):
-            list_of_xml.append(elem)
-    print(list_of_xml)
+    
+    tree = ET.parse('data.xml')
+    root = tree.getroot()
+    list_of_tag = []
+    for child in root:
+        for key, value in dict.items():
+            for k, v in child.attrib.items():
+              if value == v and key == k:
+                list_of_tag.append(child.tag)
+    
+    return list_of_tag
 data = 'data.xml'
-print(exercise3(data))
+dict = {"id":"bk106"}
+print("Exercise 3: " + str(exercise3(data, dict)))
 
 """
 Write another variant of the function from the previous exercise that
@@ -89,6 +98,21 @@ returns those elements that have at least one attribute that corresponds
 to a key-value pair in the dictionary.
 """
 
+def exercise4(data, dict):
+    my_reg = "^<.*>$"
+    list_of_xml = []
+    
+    tree = ET.parse('data.xml')
+    root = tree.getroot()
+    list_of_tag = []
+    for child in root:
+        list_3 = list(map(lambda x, y: x == y, dict, child.attrib.items()))
+        print(list_3)
+    
+    return list_of_tag
+data = 'data.xml'
+dict = {"id":"bk106"}
+print("Exercise 4: " + str(exercise4(data, dict)))
 
 """
 Write a function that, for a text given as a parameter, censures words that begin and end with vowels.
@@ -151,6 +175,15 @@ def exercise8(director, regex):
             if re.search(regex, file):
                 file = char + str(file)
                 list_of_extension.add(file)
+                if re.search("txt$", extension):
+                    with open(file, "r") as e:
+                        new_Check = os.readlines(e)
+                        new_Check = new_Check.split()
+
+                        for line in new_Check:
+                            if re.search(regex, line):
+                                line = char + str(line)
+                                list_of_extension.add(line)
             # in caz de avem fisiere ce contine spatii in string
             else:
                 my_file = file.split()
